@@ -24,7 +24,7 @@ class Item:
 
         :return: Общая стоимость товара.
         """
-        return self.price * self.quantity
+        return float(self.price * self.quantity)
 
     def apply_discount(self) -> None:
         """
