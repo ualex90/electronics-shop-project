@@ -40,3 +40,20 @@ def test_name(item_1):
     assert item_1.name == 'TestName_1'
     item_1.name = '0123456789876543210'
     assert item_1.name == '0123456789'
+
+
+def test_string_to_number():
+    assert Item.string_to_number('5') == 5
+    assert Item.string_to_number('5.0') == 5
+    assert Item.string_to_number('5.5') == 5.5
+
+
+def test_instantiate_from_csv():
+    Item.all = []
+    Item.instantiate_from_csv()
+    assert len(Item.all) == 5
+    assert Item.all[0].name == 'Смартфон'
+    assert Item.all[1].price == 1000
+    assert Item.all[2].name == 'Кабель'
+    assert Item.all[3].price == 50
+    assert Item.all[4].name == 'Клавиатура'
