@@ -1,6 +1,6 @@
 import csv
 
-from src.settings import ITEMS, ENCODING
+from settings import ITEMS, ENCODING
 
 
 class Item:
