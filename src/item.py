@@ -1,3 +1,8 @@
+import csv
+
+from settings import ITEMS, ENCODING
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -13,10 +18,44 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.name = name
-        self.price = price
+        self._name = name[:10]
+        self.price = float(price)
         self.quantity = quantity
         Item.all.append(self)
+
+    @staticmethod
+    def string_to_number(number: str):
+        """
+        Конвертирование строки в числа.
+        """
+        if number.replace('.', '').isdigit():
+            if '.' in number:
+                return float(number)
+            else:
+                return int(number)
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        """
+        Инициализирует товары из csv файла.
+        """
+        with open(ITEMS, 'r', encoding=ENCODING) as f:
+            items: csv.DictReader = csv.DictReader(f)
+            [cls(i['name'], cls.string_to_number(i['price']), cls.string_to_number(i['quantity'])) for i in items]
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @name.setter
+    def name(self, name: str) -> None:
+        """
+        Устанавливает название товара
+        длиной не более 10 символов.
+
+        :param name: Название товара.
+        """
+        self._name = name[:10]
 
     def calculate_total_price(self) -> float:
         """
@@ -24,7 +63,7 @@ class Item:
 
         :return: Общая стоимость товара.
         """
-        return float(self.price * self.quantity)
+        return self.price * self.quantity
 
     def apply_discount(self) -> None:
         """
