@@ -57,3 +57,11 @@ def test_instantiate_from_csv():
     assert Item.all[2].name == 'Кабель'
     assert Item.all[3].price == 50
     assert Item.all[4].name == 'Клавиатура'
+
+
+def test_represent(item_1):
+    assert repr(item_1) == "Item('TestName_1', 1000, 5)"
+
+
+def test_str(item_2):
+    assert str(item_2) == 'TestName_2'
