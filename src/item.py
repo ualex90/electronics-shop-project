@@ -39,6 +39,7 @@ class Item:
         """
         Инициализирует товары из csv файла.
         """
+        cls.all = []
         with open(ITEMS, 'r', encoding=ENCODING) as f:
             items: csv.DictReader = csv.DictReader(f)
             [cls(i['name'], cls.string_to_number(i['price']), cls.string_to_number(i['quantity'])) for i in items]
@@ -69,10 +70,10 @@ class Item:
         """
         Применяет установленную скидку для конкретного товара.
         """
-        self.price = self.price * self.pay_rate
+        self.price *= self.pay_rate
 
     def __repr__(self):
-        return f"Item('{self._name}', {int(self.price)}, {self.quantity})"
+        return f"{self.__class__.__name__}('{self._name}', {int(self.price)}, {self.quantity})"
 
     def __str__(self):
         return self._name
