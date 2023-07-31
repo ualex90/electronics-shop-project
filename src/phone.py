@@ -4,7 +4,8 @@ from src.item import Item
 class Phone(Item):
     def __init__(self, name: str, price: float, quantity: int, number_of_sim: int = 1) -> None:
         super().__init__(name, price, quantity)
-        self.__number_of_sim = number_of_sim
+        self.number_of_sim = number_of_sim
+        self.__number_of_sim = self.number_of_sim
 
     @property
     def number_of_sim(self):
@@ -12,6 +13,11 @@ class Phone(Item):
 
     @number_of_sim.setter
     def number_of_sim(self, number: int):
-        if number <= 0 and not isinstance(number, int):
-            raise ValueError('Количество физических SIM-карт должно быть целым числом больше нуля.')
-        self.__number_of_sim = number
+        error = 'Количество физических SIM-карт должно быть целым числом больше нуля.'
+        if not isinstance(number, int):   # Если не целочисленное значение, вызовим исключение
+            raise ValueError(error)
+        elif number > 0:                  # Если число больше 0, запишем значение
+            self.__number_of_sim = number
+        else:                             # Иначе вызовим исключение
+            raise ValueError(error)
+
