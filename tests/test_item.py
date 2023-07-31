@@ -59,8 +59,9 @@ def test_instantiate_from_csv():
     assert Item.all[4].name == 'Клавиатура'
 
 
-def test_represent(item_1):
+def test_represent(item_1, phone_1):
     assert repr(item_1) == "Item('TestName_1', 1000, 5)"
+    assert repr(phone_1) == "Phone('Phone_1', 50000, 7, 1)"
 
 
 def test_str(item_2):
