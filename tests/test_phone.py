@@ -6,8 +6,6 @@ from src.phone import Phone
 def test_number_of_sim(phone_1):
     # Test case #1
     phone_1.number_of_sim = 1
-    assert phone_1.number_of_sim == 1
-    # Test case #2
     with pytest.raises(ValueError):
         phone_1.number_of_sim = 0
     with pytest.raises(ValueError):
@@ -17,7 +15,7 @@ def test_number_of_sim(phone_1):
     with pytest.raises(ValueError):
         phone_1.number_of_sim = '1'
     assert phone_1.number_of_sim == 1
-    # Test case #3
+    # Test case #2
     with pytest.raises(ValueError):
         phone_3 = Phone("Phone_3", 50_000, 7, 0)
 
