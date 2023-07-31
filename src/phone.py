@@ -20,4 +20,3 @@ class Phone(Item):
             self.__number_of_sim = number
         else:                             # Иначе вызовим исключение
             raise ValueError(error)
-
