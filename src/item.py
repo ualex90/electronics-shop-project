@@ -19,7 +19,7 @@ class Item:
         :param quantity: Количество товара в магазине.
         """
         self._name = name[:10]
-        self.price = float(price)
+        self.price = price
         self.quantity = quantity
         Item.all.append(self)
 
@@ -72,8 +72,16 @@ class Item:
         """
         self.price *= self.pay_rate
 
+    def __add__(self, other):
+        if not isinstance(other, self.__class__):
+            raise ValueError('Складывать можно только объекты Item и дочерние от них.')
+        return self.quantity + other.quantity
+
     def __repr__(self):
-        return f"{self.__class__.__name__}('{self._name}', {int(self.price)}, {self.quantity})"
+        """
+        Выводит информацию о экземпляре независимо от подкласса
+        """
+        return f"{self.__class__.__name__}{tuple([i for i in self.__dict__.values()])}"
 
     def __str__(self):
         return self._name
