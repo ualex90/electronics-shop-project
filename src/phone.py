@@ -8,11 +8,11 @@ class Phone(Item):
         self.number_of_sim = number_of_sim
 
     @property
-    def number_of_sim(self):
+    def number_of_sim(self) -> int:
         return self.__number_of_sim
 
     @number_of_sim.setter
-    def number_of_sim(self, number: int):
+    def number_of_sim(self, number: int) -> None:
         error = 'Количество физических SIM-карт должно быть целым числом больше нуля.'
         if not isinstance(number, int):   # Если не целочисленное значение, вызовим исключение
             raise ValueError(error)

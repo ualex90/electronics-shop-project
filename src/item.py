@@ -35,7 +35,7 @@ class Item:
                 return int(number)
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls) -> None:
         """
         Инициализирует товары из csv файла.
         """
@@ -72,7 +72,7 @@ class Item:
         """
         self.price *= self.pay_rate
 
-    def __add__(self, other):
+    def __add__(self, other) -> int:
         if not isinstance(other, Item):
             raise ValueError('Складывать можно только объекты Item и дочерние от них.')
         return self.quantity + other.quantity
