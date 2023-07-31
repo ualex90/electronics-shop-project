@@ -81,7 +81,7 @@ class Item:
         """
         Выводит информацию о экземпляре независимо от подкласса
         """
-        return f"{self.__class__.__name__}{tuple([i for i in self.__dict__.values()])}"
+        return f"{self.__class__.__name__}{tuple(self.__dict__.values())}"
 
     def __str__(self):
         return self._name
