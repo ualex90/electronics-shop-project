@@ -59,6 +59,8 @@ def test_instantiate_from_csv():
 
 def test_add(item_1, item_2):
     assert item_1 + item_2 == 7
+    with pytest.raises(ValueError):
+        sum_ = item_1 + 10
 
 
 def test_represent(item_1, item_2):
