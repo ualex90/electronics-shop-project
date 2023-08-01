@@ -16,7 +16,6 @@ def test_item(item_1, item_2):
 def test_calculate_total_price(item_1, item_2):
     assert item_1.calculate_total_price() == 5000
     assert item_2.calculate_total_price() == 1401
-    assert isinstance(item_1.calculate_total_price(), float)
 
 
 @pytest.mark.parametrize('rate, total', [(0.5, 2500), (0.92, 4600)])
@@ -49,7 +48,6 @@ def test_string_to_number():
 
 
 def test_instantiate_from_csv():
-    Item.all = []
     Item.instantiate_from_csv()
     assert len(Item.all) == 5
     assert Item.all[0].name == 'Смартфон'
@@ -59,8 +57,15 @@ def test_instantiate_from_csv():
     assert Item.all[4].name == 'Клавиатура'
 
 
-def test_represent(item_1):
+def test_add(item_1, item_2):
+    assert item_1 + item_2 == 7
+    with pytest.raises(ValueError):
+        sum_ = item_1 + 10
+
+
+def test_represent(item_1, item_2):
     assert repr(item_1) == "Item('TestName_1', 1000, 5)"
+    assert repr(item_2) == "Item('TestName_2', 700.5, 2)"
 
 
 def test_str(item_2):

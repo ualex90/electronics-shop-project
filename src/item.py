@@ -19,7 +19,7 @@ class Item:
         :param quantity: Количество товара в магазине.
         """
         self._name = name[:10]
-        self.price = float(price)
+        self.price = price
         self.quantity = quantity
         Item.all.append(self)
 
@@ -35,10 +35,11 @@ class Item:
                 return int(number)
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls) -> None:
         """
         Инициализирует товары из csv файла.
         """
+        cls.all = []
         with open(ITEMS, 'r', encoding=ENCODING) as f:
             items: csv.DictReader = csv.DictReader(f)
             [cls(i['name'], cls.string_to_number(i['price']), cls.string_to_number(i['quantity'])) for i in items]
@@ -69,10 +70,18 @@ class Item:
         """
         Применяет установленную скидку для конкретного товара.
         """
-        self.price = self.price * self.pay_rate
+        self.price *= self.pay_rate
+
+    def __add__(self, other) -> int:
+        if not isinstance(other, Item):
+            raise ValueError('Складывать можно только объекты Item и дочерние от них.')
+        return self.quantity + other.quantity
 
     def __repr__(self):
-        return f"Item('{self._name}', {int(self.price)}, {self.quantity})"
+        """
+        Выводит информацию о экземпляре независимо от подкласса
+        """
+        return f"{self.__class__.__name__}{tuple(self.__dict__.values())}"
 
     def __str__(self):
         return self._name
