@@ -18,6 +18,7 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
+        super().__init__()
         self._name = name[:10]
         self.price = price
         self.quantity = quantity
@@ -84,4 +85,4 @@ class Item:
         return f"{self.__class__.__name__}{tuple(self.__dict__.values())}"
 
     def __str__(self):
-        return self._name
+        return self.name
