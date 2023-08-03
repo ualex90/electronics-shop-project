@@ -4,6 +4,7 @@ from src.mixins import MixinLang
 
 class Keyboard(Item, MixinLang):
     def __init__(self, name: str, price: float, quantity: int):
+        super().__init__(name, price, quantity)
         """
         Создание экземпляра класса item.
 
@@ -11,11 +12,11 @@ class Keyboard(Item, MixinLang):
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        super().__init__(name, price, quantity)
         self._name = name
 
     @property
     def name(self):
+        """Геттер name, нужен для переопределения name в Item"""
         return self._name
 
     @name.setter
