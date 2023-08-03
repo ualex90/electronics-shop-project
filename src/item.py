@@ -85,4 +85,4 @@ class Item:
         return f"{self.__class__.__name__}{tuple(self.__dict__.values())}"
 
     def __str__(self):
-        return self.name
+        return self._name
