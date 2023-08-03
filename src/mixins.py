@@ -10,6 +10,6 @@ class MixinLang:
         match self.__language:
             case 'EN':
                 self.__language = 'RU'
-            case 'RU':
+            case _:
                 self.__language = 'EN'
         return self
