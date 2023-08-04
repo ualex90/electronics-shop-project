@@ -2,6 +2,7 @@ import pytest
 
 from src.item import Item
 from src.phone import Phone
+from src.keyboard import Keyboard
 
 
 @pytest.fixture
@@ -22,3 +23,8 @@ def phone_1():
 @pytest.fixture
 def phone_2():
     return Phone("Phone_2", 35_000, 3, 2)
+
+
+@pytest.fixture
+def keyboard_1():
+    return Keyboard('Dark Project KD87A', 9600, 5)
