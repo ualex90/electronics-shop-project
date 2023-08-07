@@ -1,6 +1,10 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
+from pathlib import Path
+
 import pytest
 
+from settings import SRC
+from src.exeptions import InstantiateCSVError
 from src.item import Item
 
 
@@ -70,3 +74,13 @@ def test_represent(item_1, item_2):
 
 def test_str(item_2):
     assert str(item_2) == 'TestName_2'
+
+
+def test_file_not_found_error():
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv(file='')
+
+
+def test_instantiate_csv_error():
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv(file=Path(SRC, 'items_bad.csv'))
