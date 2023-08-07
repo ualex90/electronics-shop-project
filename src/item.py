@@ -1,3 +1,4 @@
+import copy
 import csv
 from pathlib import Path
 
@@ -47,14 +48,17 @@ class Item:
         if not Path(file).exists():
             raise FileNotFoundError('Отсутствует файл item.csv')
 
+        csv_dict = list()
         with open(file, 'r', encoding=ENCODING) as f:
             items: csv.DictReader = csv.DictReader(f)
+            csv_dict = list(items)
 
-            # Проверка на целостность файла
-            if list(items)[0].get('quantity') is None:
-                raise InstantiateCSVError
+        # Проверка на целостность файла
+        if csv_dict[0].get('quantity') is None:
+            raise InstantiateCSVError
 
-            [cls(i['name'], cls.string_to_number(i['price']), cls.string_to_number(i['quantity'])) for i in items]
+        # Инициализация экземпляров из файла
+        [cls(i['name'], cls.string_to_number(i['price']), cls.string_to_number(i['quantity'])) for i in csv_dict]
 
     @property
     def name(self) -> str:
