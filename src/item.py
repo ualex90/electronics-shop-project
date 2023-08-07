@@ -1,6 +1,8 @@
 import csv
+from pathlib import Path
 
 from settings import ITEMS, ENCODING
+from src.exeptions import InstantiateCSVError
 
 
 class Item:
@@ -36,13 +38,22 @@ class Item:
                 return int(number)
 
     @classmethod
-    def instantiate_from_csv(cls) -> None:
+    def instantiate_from_csv(cls, file=ITEMS) -> None:
         """
         Инициализирует товары из csv файла.
         """
         cls.all = []
-        with open(ITEMS, 'r', encoding=ENCODING) as f:
+        # Проверка на наличие файла
+        if not Path(file).exists():
+            raise FileNotFoundError('Отсутствует файл item.csv')
+
+        with open(file, 'r', encoding=ENCODING) as f:
             items: csv.DictReader = csv.DictReader(f)
+
+            # Проверка на целостность файла
+            if list(items)[0].get('quantity') is None:
+                raise InstantiateCSVError
+
             [cls(i['name'], cls.string_to_number(i['price']), cls.string_to_number(i['quantity'])) for i in items]
 
     @property
@@ -86,3 +97,4 @@ class Item:
 
     def __str__(self):
         return self._name
+
