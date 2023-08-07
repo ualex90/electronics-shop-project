@@ -54,7 +54,7 @@ class Item:
             csv_dict = list(items)
 
         # Проверка на целостность файла
-        if csv_dict[0].get('quantity') is None:
+        if (csv_dict[0].get('name') and csv_dict[0].get('price') and csv_dict[0].get('quantity')) is None:
             raise InstantiateCSVError
 
         # Инициализация экземпляров из файла
